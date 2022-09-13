@@ -180,7 +180,7 @@ win32 {
       message("Jack library not found")
     }
   }
-  LIBS += -lWs2_32
+  LIBS += -lWs2_32 -lwinmm
   DEFINES += _WIN32_WINNT=0x0600 #needed for inet_pton
   DEFINES += WIN32_LEAN_AND_MEAN
   RC_FILE = win/qjacktrip.rc

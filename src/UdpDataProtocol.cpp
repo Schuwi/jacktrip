@@ -51,6 +51,7 @@
 #ifdef _WIN32
 //#include <winsock.h>
 #include <stdio.h>
+#include <mmsystem.h>
 #include <winsock2.h>  //cc need SD_SEND
 #pragma comment(lib, "ws2_32.lib")
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
@@ -489,6 +490,10 @@ void UdpDataProtocol::run()
 #endif
     }
 
+#ifdef _WIN32
+    std::cout << "timeBeginPeriod: " << timeBeginPeriod(5) << std::endl;
+#endif
+
     // clang-format off
     /////////////////////
     // to see thread priorities
@@ -712,6 +717,10 @@ void UdpDataProtocol::run()
         emit signalCeaseTransmission();
         break; }
     }
+
+#ifdef _WIN32
+    std::cout << "timeEndPeriod: " << timeEndPeriod(5) << std::endl;
+#endif
 
     if (NULL != full_redundant_packet) {
         delete[] full_redundant_packet;
