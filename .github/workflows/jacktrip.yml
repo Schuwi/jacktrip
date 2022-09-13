@@ -1,27 +1,27 @@
 name: build
 on:
-  push:
-    branches:
-      - main
-      - dev
-    tags:
-      - '**'
-    paths-ignore:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'documentation/**'
-      - 'scripts/**'
-      - 'README**'
-  pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'documentation/**'
-      - 'scripts/**'
-      - 'README**'
   workflow_dispatch:
-  schedule:
-    - cron:  '0 0 * * 0' # run weekly to refresh static Qt cache
+#   push:
+#     branches:
+#       - main
+#       - dev
+#     tags:
+#       - '**'
+#     paths-ignore:
+#       - 'docs/**'
+#       - 'mkdocs.yml'
+#       - 'documentation/**'
+#       - 'scripts/**'
+#       - 'README**'
+#   pull_request:
+#     paths-ignore:
+#       - 'docs/**'
+#       - 'mkdocs.yml'
+#       - 'documentation/**'
+#       - 'scripts/**'
+#       - 'README**'
+#   schedule:
+#     - cron:  '0 0 * * 0' # run weekly to refresh static Qt cache
 jobs:
   build:
     runs-on: ${{ matrix.runs-on }}
@@ -30,149 +30,149 @@ jobs:
       fail-fast: false # don't abort if one of the build failse
       matrix:
         include:
-          - name: Linux-x64-qmake-gcc-static
-            release-name: Linux-x64 # specify a separate name for all builds that should be included in releases
-            runs-on: ubuntu-20.04
-            system-rtaudio: false
-            bundled-rtaudio: false # set either system-rtaudio or bundled-rtaudio as true, not both
-            nogui: false
-            novs: false
-            weakjack: false
-            # vcpkg-triplet: x64-mingw-static # used when installing rtaudio with vcpkg (Windows)
-            # qt-arch: 'win64_msvc2019_64' # specify when using shared (official) qt libraries (Windows)
-            static-qt-version: 5.12.12 # if set, it will enable static Qt build
-            qt-static-cache-key: 'v27' # required for static qt; update this to force rebuilding static Qt
-            jacktrip-path: jacktrip # needed for binary upload
-            binary-path: binary # directory relative to build path; triggers artifact upload for jacktrip binary
-            # bundle-path: bundle # directory relative to build path; triggers application bundle creation and upload (macOS)
-            # installer-path: installer # directory relative to build path; triggers installer creation and upload (macOS, Windows)
-            build-system: qmake # qmake, meson, cmake (todo)
-            # meson-library-type: shared # shared, static, both
-            # static-analysis: true # run clang-tidy static analysis (meson/Linux only)
+#           - name: Linux-x64-qmake-gcc-static
+#             release-name: Linux-x64 # specify a separate name for all builds that should be included in releases
+#             runs-on: ubuntu-20.04
+#             system-rtaudio: false
+#             bundled-rtaudio: false # set either system-rtaudio or bundled-rtaudio as true, not both
+#             nogui: false
+#             novs: false
+#             weakjack: false
+#             # vcpkg-triplet: x64-mingw-static # used when installing rtaudio with vcpkg (Windows)
+#             # qt-arch: 'win64_msvc2019_64' # specify when using shared (official) qt libraries (Windows)
+#             static-qt-version: 5.12.12 # if set, it will enable static Qt build
+#             qt-static-cache-key: 'v27' # required for static qt; update this to force rebuilding static Qt
+#             jacktrip-path: jacktrip # needed for binary upload
+#             binary-path: binary # directory relative to build path; triggers artifact upload for jacktrip binary
+#             # bundle-path: bundle # directory relative to build path; triggers application bundle creation and upload (macOS)
+#             # installer-path: installer # directory relative to build path; triggers installer creation and upload (macOS, Windows)
+#             build-system: qmake # qmake, meson, cmake (todo)
+#             # meson-library-type: shared # shared, static, both
+#             # static-analysis: true # run clang-tidy static analysis (meson/Linux only)
             
-          - name: Linux-x64-qmake-gcc-shared-bundled_rtaudio
-            runs-on: ubuntu-20.04
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: false
-            # jacktrip-path: jacktrip
-            # binary-path: binary
-            build-system: qmake
+#           - name: Linux-x64-qmake-gcc-shared-bundled_rtaudio
+#             runs-on: ubuntu-20.04
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: false
+#             # jacktrip-path: jacktrip
+#             # binary-path: binary
+#             build-system: qmake
 
-          - name: Linux-x64-qmake-gcc-static-nogui
-            release-name: Linux-x64-nogui
-            runs-on: ubuntu-20.04
-            system-rtaudio: false
-            bundled-rtaudio: false
-            nogui: true
-            novs: true
-            weakjack: false
-            static-qt-version: 5.12.12
-            qt-static-cache-key: 'v27' # we use the same key as the main Linux build
-            jacktrip-path: jacktrip
-            binary-path: binary
-            build-system: qmake
+#           - name: Linux-x64-qmake-gcc-static-nogui
+#             release-name: Linux-x64-nogui
+#             runs-on: ubuntu-20.04
+#             system-rtaudio: false
+#             bundled-rtaudio: false
+#             nogui: true
+#             novs: true
+#             weakjack: false
+#             static-qt-version: 5.12.12
+#             qt-static-cache-key: 'v27' # we use the same key as the main Linux build
+#             jacktrip-path: jacktrip
+#             binary-path: binary
+#             build-system: qmake
 
-          - name: Linux-x64-meson-gcc-shared-bundled_rtaudio
-            runs-on: ubuntu-20.04
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: false
-            # jacktrip-path: jacktrip
-            # binary-path: binary
-            build-system: meson
-            meson-library-type: shared
-            static-analysis: true
+#           - name: Linux-x64-meson-gcc-shared-bundled_rtaudio
+#             runs-on: ubuntu-20.04
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: false
+#             # jacktrip-path: jacktrip
+#             # binary-path: binary
+#             build-system: meson
+#             meson-library-type: shared
+#             static-analysis: true
             
-          # - name: Linux-x64-meson-gcc-shared # meson static build doesn't work currently
-          #   runs-on: ubuntu-18.04
-          #   system-rtaudio: false
-          #   bundled-rtaudio: false
-          #   nogui: false
-          #   weakjack: false
-          #   static-qt-version: 5.12.12
-          #   qt-static-cache-key: 'v26'
-          #   jacktrip-path: jacktrip
-          #   binary-path: binary
-          #   build-system: meson
-          #   meson-library-type: static
+#           # - name: Linux-x64-meson-gcc-shared # meson static build doesn't work currently
+#           #   runs-on: ubuntu-18.04
+#           #   system-rtaudio: false
+#           #   bundled-rtaudio: false
+#           #   nogui: false
+#           #   weakjack: false
+#           #   static-qt-version: 5.12.12
+#           #   qt-static-cache-key: 'v26'
+#           #   jacktrip-path: jacktrip
+#           #   binary-path: binary
+#           #   build-system: meson
+#           #   meson-library-type: static
 
-          - name: macOS-x64-qmake-clang-static-bundled_rtaudio
-            release-name: macOS-x64
-            runs-on: macos-11
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: true
-            static-qt-version: 5.15.2
-            qt-static-cache-key: 'v07'
-            jacktrip-path: jacktrip
-            # binary-path: binary # don't upload the binary itself since we upload the bundle
-            bundle-path: bundle
-            installer-path: installer
-            build-system: qmake
+#           - name: macOS-x64-qmake-clang-static-bundled_rtaudio
+#             release-name: macOS-x64
+#             runs-on: macos-11
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             static-qt-version: 5.15.2
+#             qt-static-cache-key: 'v07'
+#             jacktrip-path: jacktrip
+#             # binary-path: binary # don't upload the binary itself since we upload the bundle
+#             bundle-path: bundle
+#             installer-path: installer
+#             build-system: qmake
 
-          - name: macOS-x64-qmake-clang-shared
-            runs-on: macos-11
-            system-rtaudio: true
-            bundled-rtaudio: false
-            nogui: false
-            novs: false
-            weakjack: true
-            # jacktrip-path: jacktrip
-            # binary-path: binary
-            # bundle-path: bundle
-            # installer-path: installer
-            build-system: qmake
+#           - name: macOS-x64-qmake-clang-shared
+#             runs-on: macos-11
+#             system-rtaudio: true
+#             bundled-rtaudio: false
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             # jacktrip-path: jacktrip
+#             # binary-path: binary
+#             # bundle-path: bundle
+#             # installer-path: installer
+#             build-system: qmake
 
-          - name: macOS-x64-meson-clang-shared-bundled_rtaudio
-            runs-on: macos-11
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: true
-            # jacktrip-path: jacktrip
-            # binary-path: binary
-            # bundle-path: bundle
-            # installer-path: installer
-            build-system: meson
-            meson-library-type: both
+#           - name: macOS-x64-meson-clang-shared-bundled_rtaudio
+#             runs-on: macos-11
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             # jacktrip-path: jacktrip
+#             # binary-path: binary
+#             # bundle-path: bundle
+#             # installer-path: installer
+#             build-system: meson
+#             meson-library-type: both
             
-          - name: Windows-x64-qmake-gcc-static-bundled_rtaudio
-            release-name: Windows-x64
-            runs-on: windows-2019
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: true
-            vcpkg-triplet: x64-mingw-static
-            static-qt-version: 5.15.2
-            qt-static-cache-key: 'v07'
-            jacktrip-path: release/jacktrip.exe
-            binary-path: binary
-            installer-path: installer
-            build-system: qmake
+#           - name: Windows-x64-qmake-gcc-static-bundled_rtaudio
+#             release-name: Windows-x64
+#             runs-on: windows-2019
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             vcpkg-triplet: x64-mingw-static
+#             static-qt-version: 5.15.2
+#             qt-static-cache-key: 'v07'
+#             jacktrip-path: release/jacktrip.exe
+#             binary-path: binary
+#             installer-path: installer
+#             build-system: qmake
 
-          - name: Windows-x64-qmake-gcc-shared
-            runs-on: windows-2019
-            system-rtaudio: true
-            bundled-rtaudio: false
-            nogui: false
-            novs: false
-            weakjack: true
-            vcpkg-triplet: x64-mingw-dynamic
-            qt-arch: 'win64_mingw81'
-            qt-cache-key: 'v01'
-            # jacktrip-path: release/jacktrip.exe
-            # binary-path: binary
-            build-system: qmake
+#           - name: Windows-x64-qmake-gcc-shared
+#             runs-on: windows-2019
+#             system-rtaudio: true
+#             bundled-rtaudio: false
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             vcpkg-triplet: x64-mingw-dynamic
+#             qt-arch: 'win64_mingw81'
+#             qt-cache-key: 'v01'
+#             # jacktrip-path: release/jacktrip.exe
+#             # binary-path: binary
+#             build-system: qmake
 
           - name: Windows-x64-meson-msvc-shared
             runs-on: windows-2019
@@ -189,19 +189,19 @@ jobs:
             build-system: meson
             meson-library-type: shared
 
-          - name: Windows-x64-meson-msvc-shared-bundled_rtaudio
-            runs-on: windows-2019
-            system-rtaudio: false
-            bundled-rtaudio: true
-            nogui: false
-            novs: false
-            weakjack: true
-            qt-arch: 'win64_msvc2019_64'
-            qt-cache-key: 'v01'
-            # jacktrip-path: jacktrip.exe
-            # binary-path: binary
-            build-system: meson
-            meson-library-type: both
+#           - name: Windows-x64-meson-msvc-shared-bundled_rtaudio
+#             runs-on: windows-2019
+#             system-rtaudio: false
+#             bundled-rtaudio: true
+#             nogui: false
+#             novs: false
+#             weakjack: true
+#             qt-arch: 'win64_msvc2019_64'
+#             qt-cache-key: 'v01'
+#             # jacktrip-path: jacktrip.exe
+#             # binary-path: binary
+#             build-system: meson
+#             meson-library-type: both
 
     env:
       BUILD_PATH: ${{ github.workspace }}/builddir
