@@ -50,8 +50,8 @@
 #include "jacktrip_globals.h"
 #ifdef _WIN32
 //#include <winsock.h>
-#include <stdio.h>
 #include <mmsystem.h>
+#include <stdio.h>
 #include <winsock2.h>  //cc need SD_SEND
 #pragma comment(lib, "ws2_32.lib")
 #define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
