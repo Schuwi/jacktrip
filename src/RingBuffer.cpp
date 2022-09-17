@@ -128,7 +128,7 @@ void RingBuffer::readSlotBlocking(int8_t* ptrToReadSlot)
     // If the Ringbuffer is empty, it waits for the bufferIsNotEmpty condition
     while (mFullSlots == 0) {
         // std::cerr << "READ UNDER-RUN BLOCKING before" << endl;
-        mBufferIsNotEmpty.wait(&mMutex, 5);
+        mBufferIsNotEmpty.wait(&mMutex, 1);
         if (JackTrip::sJackStopped) {
             return;
         }
