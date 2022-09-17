@@ -491,7 +491,7 @@ void UdpDataProtocol::run()
     }
 
 #ifdef _WIN32
-    std::cout << "timeBeginPeriod: " << timeBeginPeriod(5) << std::endl;
+    std::cout << "timeBeginPeriod: " << timeBeginPeriod(1) << std::endl;
 #endif
 
     // clang-format off
@@ -719,7 +719,7 @@ void UdpDataProtocol::run()
     }
 
 #ifdef _WIN32
-    std::cout << "timeEndPeriod: " << timeEndPeriod(5) << std::endl;
+    std::cout << "timeEndPeriod: " << timeEndPeriod(1) << std::endl;
 #endif
 
     if (NULL != full_redundant_packet) {
